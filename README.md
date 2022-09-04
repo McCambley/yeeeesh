@@ -4,3 +4,6 @@ A scheduled job to check a spotify playlist called yeeeesh and tweet yeeeesh if 
 
 I think this is actually all I need?
 https://www.youtube.com/watch?v=9dIHjegGeKo&ab_channel=WesBos
+
+This too?
+https://www.youtube.com/watch?v=XKa5RejrWxg&ab_channel=JamesQQuick
