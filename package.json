@@ -4,7 +4,8 @@
   "description": "A scheduled job to check a spotify playlist called yeeeesh and tweet yeeeesh if a new song has been added.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/McCambley/yeeeesh/issues"
   },
-  "homepage": "https://github.com/McCambley/yeeeesh#readme"
+  "homepage": "https://github.com/McCambley/yeeeesh#readme",
+  "dependencies": {
+    "node-cron": "^3.0.2",
+    "nodemon": "^2.0.19"
+  }
 }
