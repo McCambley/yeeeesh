@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import fetch from "node-fetch";
 import dotenv from "dotenv";
+import { SongArray } from "./types";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -31,7 +32,9 @@ const getAccessToken = async () => {
   }
 };
 
-const getPlaylistData = async (accessToken: string) => {
+const getPlaylistData = async (
+  accessToken: string
+): Promise<SongArray | { message: string }> => {
   let items: SongArray = [];
   const fetchData = async (offset: number): Promise<SongArray> => {
     console.count("Fetching!");
@@ -45,7 +48,7 @@ const getPlaylistData = async (accessToken: string) => {
     );
 
     const data = await response.json();
-    items.push(data.items);
+    items = [...items, ...data.items];
     return data.items.length === data.limit
       ? fetchData(data.offset + data.items.length)
       : items;
@@ -54,7 +57,12 @@ const getPlaylistData = async (accessToken: string) => {
     const data = await fetchData(0);
     return data;
   } catch (error) {
-    return { error };
+    if (error instanceof Error) {
+      return { message: error.message };
+    }
+    return {
+      message: "There was a problem with the server. Please try again.",
+    };
   }
 };
 
@@ -62,6 +70,11 @@ app.get("/", async (req: Request, res: Response) => {
   try {
     const accessToken = await getAccessToken();
     const data = await getPlaylistData(accessToken);
+    if (data instanceof Array) {
+      console.log(
+        `Yeeeesh: ${data[0].track.artists[0].name} -- ${data[0].track.name}\n${data[0].track.external_urls.spotify}`
+      );
+    }
     res.send({ data });
   } catch (error) {
     res.send({ error });

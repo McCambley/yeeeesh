@@ -12,4 +12,4 @@ interface Song {
   };
 }
 
-type SongArray = Array<Song>;
+export type SongArray = Array<Song>;
