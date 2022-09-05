@@ -4,8 +4,10 @@
   "description": "A scheduled job to check a spotify playlist called yeeeesh and tweet yeeeesh if a new song has been added.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "dev": "nodemon src/app.ts",
+    "ts:build": "rm -rf ./dist && tsc",
+    "prestart": "npm run ts:build",
+    "start": "node dist/app.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +20,19 @@
   },
   "homepage": "https://github.com/McCambley/yeeeesh#readme",
   "dependencies": {
-    "node-cron": "^3.0.2",
-    "nodemon": "^2.0.19"
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "mysql": "^2.18.1",
+    "node-cron": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/mysql": "^2.15.21",
+    "@types/node": "^18.7.14",
+    "@types/node-cron": "^3.0.3",
+    "nodemon": "^2.0.19",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.2"
   }
 }
