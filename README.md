@@ -10,3 +10,5 @@ https://www.youtube.com/watch?v=XKa5RejrWxg&ab_channel=JamesQQuick
 
 This?
 https://stackoverflow.com/questions/49442308/get-spotify-access-token-without-logging-in-and-without-a-server-side
+
+THIS: https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
