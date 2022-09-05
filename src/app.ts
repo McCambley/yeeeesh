@@ -32,8 +32,8 @@ const getAccessToken = async () => {
 };
 
 const getPlaylistData = async (accessToken: string) => {
-  let items: Array<any> = [];
-  const fetchData = async (offset: number): Promise<any> => {
+  let items: SongArray = [];
+  const fetchData = async (offset: number): Promise<SongArray> => {
     console.count("Fetching!");
     const response = await fetch(
       `${spotifyUrl}/playlists/${playlistId}/tracks?limit=100&offset=${offset}&fields=total,limit,offset,items(added_at,track(name,external_urls(spotify),artists(name)))`,
