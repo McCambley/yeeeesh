@@ -9,8 +9,8 @@ dotenv.config();
 
 const spotifyUrl = "https://api.spotify.com/v1";
 const playlistId = "6SeniaKv8gLd9XDKASj2Oi";
-const clientId = process.env.CLIENT_ID;
-const clientSecret = process.env.CLIENT_SECRET;
+const clientId = process.env.SPOTIFY_CLIENT_ID;
+const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 
 const getAccessToken = async () => {
   try {
@@ -76,6 +76,25 @@ app.get("/", async (req: Request, res: Response) => {
       );
     }
     res.send({ data });
+  } catch (error) {
+    res.send({ error });
+  }
+});
+
+app.get("/tweet", async (req: Request, res: Response) => {
+  try {
+    // const response = await fetch("https://api.twitter.com/2/tweets", {
+    //   method: "post",
+    //   body: JSON.stringify({ text: "hello?" }),
+    //   headers: {
+    //     Authorization: `Basic ${Buffer.from(
+    //       `${clientId}:${clientSecret}`
+    //     ).toString("base64")}`,
+    //     "Content-Type": "application/x-www-form-urlencoded",
+    //   },
+    // });
+    // const { access_token } = await response.json();
+    // res.send({ data });
   } catch (error) {
     res.send({ error });
   }
