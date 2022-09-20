@@ -10,7 +10,7 @@ app.get("/", async (req: Request, res: Response) => {
     const accessToken = await getAccessToken();
     let data = await getPlaylistData(accessToken);
     if (data instanceof Array) {
-      for (const song of data.slice(286)) {
+      for (const song of data) {
         const tweetContent = `${getArtists(song.track.artists)} — ${
           song.track.name
         }\n${song.track.external_urls.spotify}`;
