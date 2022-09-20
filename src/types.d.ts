@@ -13,3 +13,8 @@ interface Song {
 }
 
 export type SongArray = Array<Song>;
+interface Artist {
+  name: string;
+}
+
+export type ArtistArray = Array<Artist>;
