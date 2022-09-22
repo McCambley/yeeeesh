@@ -11,9 +11,7 @@ app.get("/", async (req: Request, res: Response) => {
     let data = await getPlaylistData(accessToken);
     if (data instanceof Array) {
       for (const song of data) {
-        const tweetContent = `${getArtists(song.track.artists)} — ${
-          song.track.name
-        }\n${song.track.external_urls.spotify}`;
+        const tweetContent = `${getArtists(song.track.artists)} — ${song.track.name}\n${song.track.external_urls.spotify}`;
 
         console.log(tweetContent);
         const tweet = await twitterClient.v2.tweet(tweetContent);
