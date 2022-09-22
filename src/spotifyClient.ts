@@ -1,6 +1,7 @@
 import fetch from "node-fetch";
 import dotenv from "dotenv";
 import { SongArray, ArtistArray } from "./types";
+import { getTimeValues } from "./utils/time";
 dotenv.config();
 
 // Spotify
@@ -15,9 +16,7 @@ export const getAccessToken = async () => {
       method: "post",
       body: "grant_type=client_credentials",
       headers: {
-        Authorization: `Basic ${Buffer.from(
-          `${clientId}:${clientSecret}`
-        ).toString("base64")}`,
+        Authorization: `Basic ${Buffer.from(`${clientId}:${clientSecret}`).toString("base64")}`,
         "Content-Type": "application/x-www-form-urlencoded",
       },
     });
@@ -29,26 +28,20 @@ export const getAccessToken = async () => {
   }
 };
 
-export const getPlaylistData = async (
-  accessToken: string
-): Promise<SongArray | { message: string }> => {
+export const getPlaylistData = async (accessToken: string): Promise<SongArray | { message: string }> => {
+  const { CURRENT_TIMESTAMP } = getTimeValues();
+  console.log(`Getting playlist data at ${CURRENT_TIMESTAMP}`);
   let items: SongArray = [];
   const fetchData = async (offset: number): Promise<SongArray> => {
-    console.count("Fetching!");
-    const response = await fetch(
-      `${spotifyUrl}/playlists/${playlistId}/tracks?limit=100&offset=${offset}&fields=total,limit,offset,items(added_at,track(name,external_urls(spotify),artists(name)))`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
+    const response = await fetch(`${spotifyUrl}/playlists/${playlistId}/tracks?limit=100&offset=${offset}&fields=total,limit,offset,items(added_at,track(name,external_urls(spotify),artists(name)))`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
 
     const data = await response.json();
     items = [...items, ...data.items];
-    return data.items.length === data.limit
-      ? fetchData(data.offset + data.items.length)
-      : items;
+    return data.items.length === data.limit ? fetchData(data.offset + data.items.length) : items;
   };
   try {
     const data = await fetchData(0);
@@ -72,9 +65,7 @@ export const getArtists = (artists: ArtistArray) => {
   }
   if (artists.length > 2) {
     const last = artists.pop()!;
-    return `${artists.map((artist) => artist.name).join(", ")}, and ${
-      last.name
-    }`;
+    return `${artists.map((artist) => artist.name).join(", ")}, and ${last.name}`;
   }
   return "Unknown";
 };
