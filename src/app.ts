@@ -1,44 +1,34 @@
-import express, { Request, Response } from "express";
+import cron from "node-cron";
 import { getPlaylistData, getAccessToken, getArtists } from "./spotifyClient";
 import twitterClient from "./twitterClient";
+import { getTimeValues } from "./utils/time";
 
-const app = express();
-const port = process.env.PORT || 3000;
-
-app.get("/", async (req: Request, res: Response) => {
+const checkForUpdates = async () => {
+  const { ONE_HOUR_AGO, PAST_TIMESTAMP } = getTimeValues();
+  let count = 0;
+  let data;
   try {
     const accessToken = await getAccessToken();
-    let data = await getPlaylistData(accessToken);
-    if (data instanceof Array) {
-      for (const song of data) {
-        const tweetContent = `${getArtists(song.track.artists)} — ${
-          song.track.name
-        }\n${song.track.external_urls.spotify}`;
-
-        console.log(tweetContent);
-        const tweet = await twitterClient.v2.tweet(tweetContent);
-        console.log(tweet);
-        await new Promise((resolve) => {
-          setTimeout(resolve, 4800);
-        });
+    data = await getPlaylistData(accessToken);
+  } catch (error) {
+    console.error(error);
+  }
+  if (data instanceof Array) {
+    for (const song of data) {
+      const isNew = new Date(song.added_at).getTime() > ONE_HOUR_AGO;
+      if (isNew) {
+        const tweetContent = `${getArtists(song.track.artists)} — ${song.track.name}\n${song.track.external_urls.spotify}`;
+        try {
+          const tweet = await twitterClient.v2.tweet(tweetContent);
+          console.log(tweet);
+        } catch (error) {
+          console.error(error);
+        }
+        count++;
       }
     }
-    res.send(data);
-  } catch (error) {
-    res.send({ error });
   }
-});
+  console.log(`${count} songs added since ${PAST_TIMESTAMP}`);
+};
 
-app.get("/tweet", async (req: Request, res: Response) => {
-  try {
-    const data = await twitterClient.v2.tweet("Yeeeesh...");
-    res.send(data);
-  } catch (error: any) {
-    res.send(error);
-  }
-});
-
-app.listen(port, () => {
-  // cron.schedule("* * * * *", () => console.log("Soooon!"));
-  console.log("Welcome back to ✨ Express ✨ my friend");
-});
+cron.schedule("0 * * * *", checkForUpdates);
