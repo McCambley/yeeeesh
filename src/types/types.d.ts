@@ -12,6 +12,13 @@ interface Song {
   };
 }
 
+interface Cron {
+  cron: string;
+  task: () => void | Promise<void>;
+}
+
+export type Crons = Array<Cron>;
+
 export type SongArray = Array<Song>;
 interface Artist {
   name: string;

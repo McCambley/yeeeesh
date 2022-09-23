@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
-import { getPlaylistData, getAccessToken, getArtists } from "./spotifyClient";
-import twitterClient from "./twitterClient";
+import { getPlaylistData, getAccessToken, getArtists } from "./utils/spotifyClient";
+import twitterClient from "./utils/twitterClient";
 
 const app = express();
 const port = process.env.PORT || 3000;

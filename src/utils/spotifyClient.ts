@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 import dotenv from "dotenv";
-import { SongArray, ArtistArray } from "./types";
-import { getTimeValues } from "./utils/time";
+import { SongArray, ArtistArray } from "../types/types";
+import { getTimeValues } from "./time";
 dotenv.config();
 
 // Spotify
