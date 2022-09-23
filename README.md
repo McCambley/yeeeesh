@@ -19,3 +19,5 @@ https://developer.twitter.com/en/docs/tutorials/how-to-create-a-twitter-bot-with
 https://blog.risingstack.com/node-js-twitter-bot-tutorial/
 
 https://dev.to/dom_the_dev/how-to-use-the-twitter-api-to-create-a-twitter-bot-7l6
+
+Deploying to GCP: https://levelup.gitconnected.com/how-to-deploy-your-node-js-app-with-google-2cd3771d5b21
