@@ -21,3 +21,5 @@ https://blog.risingstack.com/node-js-twitter-bot-tutorial/
 https://dev.to/dom_the_dev/how-to-use-the-twitter-api-to-create-a-twitter-bot-7l6
 
 Deploying to GCP: https://levelup.gitconnected.com/how-to-deploy-your-node-js-app-with-google-2cd3771d5b21
+
+Writing to JSON file: https://stackoverflow.com/questions/36856232/write-add-data-in-json-file-using-node-js
