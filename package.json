@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "nodemon src/app.ts",
     "ts:build": "rm -rf ./dist && tsc",
+    "gcp-build": "npm run ts:build",
     "prestart": "npm run ts:build",
     "start": "node dist/app.js"
   },
