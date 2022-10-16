@@ -25,3 +25,5 @@ Deploying to GCP: https://levelup.gitconnected.com/how-to-deploy-your-node-js-ap
 Writing to JSON file: https://stackoverflow.com/questions/36856232/write-add-data-in-json-file-using-node-js
 
 Script on intervals: https://stackoverflow.com/questions/62722214/best-to-way-to-run-a-node-js-script-on-google-cloud
+
+Actual sauce: https://duff.blog/cloud-functions-with-typescript#comments-list
