@@ -33,11 +33,14 @@ export const getPlaylistData = async (accessToken: string): Promise<SongArray | 
   console.log(`Getting playlist data at ${CURRENT_TIMESTAMP}`);
   let items: SongArray = [];
   const fetchData = async (offset: number): Promise<SongArray> => {
-    const response = await fetch(`${spotifyUrl}/playlists/${playlistId}/tracks?limit=100&offset=${offset}&fields=total,limit,offset,items(added_at,track(name,external_urls(spotify),artists(name)))`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    const response = await fetch(
+      `${spotifyUrl}/playlists/${playlistId}/tracks?limit=100&offset=${offset}&fields=total,limit,offset,items(added_at,track(id,name,external_urls(spotify),artists(name)))`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
 
     const data = await response.json();
     items = [...items, ...data.items];
