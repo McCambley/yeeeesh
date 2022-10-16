@@ -2,7 +2,7 @@
   "name": "yeeeesh",
   "version": "1.0.0",
   "description": "A scheduled job to check a spotify playlist called yeeeesh and tweet yeeeesh if a new song has been added.",
-  "main": "dist/src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "dev": "nodemon src/app.ts",
     "ts:build": "rm -rf ./dist && tsc",
